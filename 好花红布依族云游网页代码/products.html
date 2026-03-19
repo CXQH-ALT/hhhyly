@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特产风物 - 好花红布依族·云游</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        /* 顶部导航栏 */
+        .navbar {
+            background-color: #1a365d;
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        .nav-menu li {
+            margin: 0 20px;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        .nav-menu a:hover {
+            color: #d4a76a;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+        .search-box {
+            position: relative;
+            margin-right: 20px;
+        }
+        .search-input {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: none;
+            width: 200px;
+            font-size: 14px;
+        }
+        .login-btn {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 15px;
+        }
+        .login-btn:hover {
+            text-decoration: underline;
+        }
+        /* 页面内容 */
+        .content {
+            margin-top: 80px;
+            padding: 40px;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 10px;
+        }
+        .page-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        /* 特产概览 */
+        .overview-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .overview-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .overview-header h2 {
+            font-size: 28px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .overview-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .overview-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .overview-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        .overview-text {
+            flex: 1;
+        }
+        .overview-text h3 {
+            font-size: 24px;
+            color: #1a365d;
+            margin-bottom: 20px;
+        }
+        .overview-text p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        /* 特产分类 */
+        .category-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .category-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .category-header h2 {
+            font-size: 28px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .category-tab {
+            padding: 10px 20px;
+            background-color: #f9f9f9;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .category-tab:hover {
+            background-color: #e6f0f8;
+        }
+        .category-tab.active {
+            background-color: #1a365d;
+            color: white;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .product-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .product-card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        .product-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover .product-card-image img {
+            transform: scale(1.05);
+        }
+        .product-card-content {
+            padding: 20px;
+        }
+        .product-card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 10px;
+        }
+        .product-card-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .product-card-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        .add-to-cart {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #1a365d;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .add-to-cart:hover {
+            background-color: #2d3748;
+        }
+        /* 直播专区 */
+        .live-section {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        .live-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .live-header h2 {
+            font-size: 28px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .live-container {
+            display: flex;
+            gap: 40px;
+        }
+        .live-video {
+            flex: 2;
+            background-color: #333;
+            border-radius: 8px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .live-info {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .live-info h3 {
+            font-size: 20px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .live-info p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .live-schedule {
+            margin-top: 20px;
+        }
+        .live-schedule h4 {
+            font-size: 16px;
+            color: #1a365d;
+            margin-bottom: 10px;
+        }
+        .live-schedule ul {
+            list-style: none;
+        }
+        .live-schedule li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            color: #666;
+        }
+        /* 底部页脚 */
+        .footer {
+            background-color: #1a365d;
+            color: white;
+            padding: 60px 40px;
+            margin-top: 40px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #d4a76a;
+        }
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #e0e0e0;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #d4a76a;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #2d3748;
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🏯</span>
+            好花红布依族·云游
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="panoramic.html">全景云游</a></li>
+            <li><a href="culture.html">布依文化</a></li>
+            <li><a href="intangible.html">非遗展陈</a></li>
+            <li><a href="products.html">特产风物</a></li>
+            <li><a href="guide.html">线下导览</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="搜索...">
+            </div>
+            <a href="#" class="login-btn">登录</a>
+            <a href="#" class="login-btn">注册</a>
+        </div>
+    </nav>
+
+    <!-- 页面内容 -->
+    <div class="content">
+        <h1 class="page-title">特产风物</h1>
+        <p class="page-subtitle">品味布依族特色产品，感受民族文化魅力</p>
+
+        <!-- 特产概览 -->
+        <div class="overview-section">
+            <div class="overview-header">
+                <h2>特产概览</h2>
+                <p>好花红布依族村寨的特色产品，融合了传统工艺和自然精华</p>
+            </div>
+            <div class="overview-content">
+                <div class="overview-image">
+                    <img src="https://x0.ifengimg.com/res/2021/52D89FCCECAFCE7C61C26CF240CDEC4821505861_size192_w1080_h810.jpeg" alt="特产概览">
+                </div>
+                <div class="overview-text">
+                    <h3>布依族特色产品</h3>
+                    <p>好花红布依族村寨拥有丰富的特色产品，这些产品融合了布依族的传统工艺和当地的自然资源，具有独特的民族特色和文化内涵。从精美的手工艺品到美味的特色食品，每一件产品都体现了布依族人民的智慧和创造力。</p>
+                    <p>我们致力于通过线上平台，将这些特色产品推向更广阔的市场，帮助当地农户增收致富，同时也让更多的人了解和欣赏布依族的传统文化。所有产品均由当地农户和手工艺人精心制作，保证品质和 authenticity。</p>
+                    <p>通过购买这些特色产品，您不仅可以品尝到地道的布依族美食，还可以收藏精美的手工艺品，同时为乡村振兴贡献一份力量。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 特产分类 -->
+        <div class="category-section">
+            <div class="category-header">
+                <h2>产品分类</h2>
+                <p>浏览布依族特色产品</p>
+            </div>
+            <div class="category-tabs">
+                <div class="category-tab active">全部产品</div>
+                <div class="category-tab">手工艺品</div>
+                <div class="category-tab">特色食品</div>
+                <div class="category-tab">文创产品</div>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="https://ts4.tc.mm.bing.net/th/id/OIP-C.jetg1MR5rXxs4r_2Jh5SLAHaHX?rs=1&pid=ImgDetMain&o=7&rm=3" alt="蜡染布">
+                    </div>
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">蜡染布</h3>
+                        <p class="product-card-desc">传统手工蜡染，图案精美，色彩鲜艳，是布依族文化的重要载体。可用于制作服装、家居装饰等。</p>
+                        <div class="product-card-price">¥128.00</div>
+                        <a href="#" class="add-to-cart">加入购物车</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="https://img.alicdn.com/i1/2214242279831/O1CN01Gp0pHC2MUeXsCUAht_!!2214242279831.jpg" alt="糯米酒">
+                    </div>
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">糯米酒</h3>
+                        <p class="product-card-desc">传统工艺酿造，口感醇厚，香气浓郁，是布依族的特色饮品。选用优质糯米，经过多道工序精心酿制。</p>
+                        <div class="product-card-price">¥88.00</div>
+                        <a href="#" class="add-to-cart">加入购物车</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="https://ts3.tc.mm.bing.net/th/id/OIP-C.7OzhwCp0xLiACafjiFo8ogHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="刺绣枕头">
+                    </div>
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">刺绣枕头</h3>
+                        <p class="product-card-desc">手工刺绣，图案精美，工艺精湛，是家居装饰的理想选择。选用优质面料，刺绣图案富有民族特色。</p>
+                        <div class="product-card-price">¥168.00</div>
+                        <a href="#" class="add-to-cart">加入购物车</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="https://img95.699pic.com/photo/50513/2912.jpg_wh860.jpg" alt="布依草药">
+                    </div>
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">布依草药</h3>
+                        <p class="product-card-desc">天然野生草药，具有独特的药用价值，是布依族传统医学的重要组成部分。采自当地深山，品质纯正。</p>
+                        <div class="product-card-price">¥68.00</div>
+                        <a href="#" class="add-to-cart">加入购物车</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="https://ts3.tc.mm.bing.net/th/id/OIP-C.-WXLDmbNHFEcx5nPGRCRGwHaE6?rs=1&pid=ImgDetMain&o=7&rm=3" alt="糯米糍粑">
+                    </div>
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">糯米糍粑</h3>
+                        <p class="product-card-desc">传统手工制作，口感软糯，香甜可口，是布依族的特色食品。选用优质糯米，传统工艺制作。</p>
+                        <div class="product-card-price">¥38.00</div>
+                        <a href="#" class="add-to-cart">加入购物车</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="https://cbu01.alicdn.com/img/ibank/2019/948/017/12232710849_1275475203.jpg" alt="布依织锦袋">
+                    </div>
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">布依织锦袋</h3>
+                        <p class="product-card-desc">手工织锦制作，图案精美，工艺精湛，是实用的时尚配饰。选用优质丝线，传统织锦工艺。</p>
+                        <div class="product-card-price">¥98.00</div>
+                        <a href="#" class="add-to-cart">加入购物车</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="https://ts1.tc.mm.bing.net/th/id/R-C.50076ceb2dcc955aa9566dd268e7d7c3?rik=Z0Hag7ssc8MnEw&riu=http%3a%2f%2fpuui.qpic.cn%2fvpic_cover%2fv0632zkqjxo%2fv0632zkqjxo_hz.jpg%2f1280&ehk=cexw5Zl7FrgaLjCtulZOACjNvHMp9ZixaiVfUN2y7y0%3d&risl=&pid=ImgRaw&r=0" alt="布依酸汤">
+                    </div>
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">布依酸汤</h3>
+                        <p class="product-card-desc">传统工艺制作，酸香可口，是布依族的特色调味品。选用当地新鲜食材，传统发酵工艺。</p>
+                        <div class="product-card-price">¥48.00</div>
+                        <a href="#" class="add-to-cart">加入购物车</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="https://img95.699pic.com/photo/60000/9543.jpg_wh860.jpg" alt="布依木雕">
+                    </div>
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">布依木雕</h3>
+                        <p class="product-card-desc">手工雕刻，工艺精湛，图案精美，是具有收藏价值的艺术品。选用优质木材，传统雕刻工艺。</p>
+                        <div class="product-card-price">¥268.00</div>
+                        <a href="#" class="add-to-cart">加入购物车</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 直播专区 -->
+        <div class="live-section">
+            <div class="live-header">
+                <h2>农户直播专区</h2>
+                <p>观看农户直播，了解产品制作过程</p>
+            </div>
+            <div class="live-container">
+                <div class="live-video">
+                    <div>
+                        <h3>直播中</h3>
+                        <p>布依族蜡染制作过程</p>
+                    </div>
+                </div>
+                <div class="live-info">
+                    <h3>直播详情</h3>
+                    <p>本次直播由布依族蜡染传承人王金花为大家展示蜡染的制作过程，包括点蜡、染色、脱蜡等步骤，让您了解蜡染的独特魅力。</p>
+                    <p>直播过程中，您可以通过评论区与传承人互动，了解更多关于蜡染的知识，同时还可以购买直播专属优惠产品。</p>
+                    <div class="live-schedule">
+                        <h4>直播 schedule</h4>
+                        <ul>
+                            <li>10:00 - 10:30 蜡染基础知识介绍</li>
+                            <li>10:30 - 11:30 蜡染制作过程展示</li>
+                            <li>11:30 - 12:00 产品介绍与优惠活动</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <p>好花红布依族云游项目致力于通过数字化技术，展示布依族的传统文化和自然风光，促进乡村文旅发展，实现文化传承与经济增收的双重目标。</p>
+            </div>
+            <div class="footer-section">
+                <h3>快速导航</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="panoramic.html">全景云游</a></li>
+                    <li><a href="culture.html">布依文化</a></li>
+                    <li><a href="intangible.html">非遗展陈</a></li>
+                    <li><a href="products.html">特产风物</a></li>
+                    <li><a href="guide.html">线下导览</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>联系我们</h3>
+                <p>团队电话：13950916331</p>
+                <p>团队邮箱：2209767041@qq.com</p>
+                <p>旅游地址：贵州省黔南布依族苗族自治州惠水县好花红镇</p>
+            </div>
+            <div class="footer-section">
+                <h3>版权信息</h3>
+                <p>© 2026 好花红布依族·云游-贵州黔南科技学院-创新启航队</p>
+                <p>保留所有权利</p>
+                <p>网站设计与开发：贵州黔南科技学院-创新启航队</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 好花红布依族·云游-贵州黔南科技学院-创新启航队 版权所有</p>
+        </div>
+    </footer>
+
+    <script>
+        // 分类标签切换功能
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有标签的active类
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                // 为当前点击的标签添加active类
+                this.classList.add('active');
+                // 这里可以添加筛选产品的逻辑
+            });
+        });
+    </script>
+</body>
+</html>

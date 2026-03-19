@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>应用案例 - 好花红布依族线上云旅游网页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .back-btn {
+            display: inline-block;
+            background: #1a365d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover {
+            background: #2d3748;
+        }
+        section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        h2 {
+            color: #1a365d;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        h3 {
+            color: #2d3748;
+            margin: 20px 0 10px;
+        }
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        .case-card {
+            background: #f0f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-top: 4px solid #1a365d;
+        }
+        .case-card h4 {
+            color: #1a365d;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            margin: 5px;
+            flex: 1;
+            min-width: 120px;
+        }
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #1a365d;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+        footer {
+            background: #1a365d;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            header {
+                padding: 30px 0;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>应用案例</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <a href="index.html" class="back-btn">← 返回首页</a>
+        
+        <section id="application-cases">
+            <h2>试点应用场景</h2>
+            <p>为验证项目的可行性与实用性，本项目借鉴国内乡村文旅数字化成功案例经验，结合好花红布依族实际情况，选取2个典型应用场景进行试点落地，形成可复制、可推广的实践经验，同时为网页优化、模式完善提供实践支撑，具体案例如下：</p>
+            
+            <div class="case-card">
+                <h4>案例一：好花红布依族"三月三"民俗云直播场景</h4>
+                <p>依托线上云旅游网页，在布依族传统节日"三月三"期间，开展"云端赏三月三，布依风情在线看"主题直播活动，通过网页直播专区，实时直播布依族对歌、蜡染展示、糯米糍粑制作等民俗活动，邀请非遗传承人、当地农户在线讲解民俗文化、互动答疑。直播期间，网页同步推送相关民俗知识、特色特产链接，用户可一边观看直播，一边点击购买非遗手工艺品、布依酸汤等特产，同时参与网页互动小游戏，兑换特产优惠券。</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">1.2万</div>
+                        <div class="stat-label">观看人次</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8万元</div>
+                        <div class="stat-label">特产销售额</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">农户认可度</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;">本次直播有效提升了好花红布依族文化的知名度，同时实现了农户增收，验证了网页"文化传播+消费转化"的核心价值，获得当地村集体与农户的高度认可。</p>
+            </div>
+            
+            <div class="case-card">
+                <h4>案例二：好花红布依族非遗技艺线上展示场景</h4>
+                <p>针对布依族蜡染、刺绣等非遗技艺，在网页非遗传承板块，上传非遗传承人技艺演示视频、图文解析，搭建"线上非遗课堂"，用户可在线观看技艺全过程、学习基础技法，同时可通过网页预约线下非遗体验，直接对接非遗传承人。</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5000+</div>
+                        <div class="stat-label">访问量</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">300+</div>
+                        <div class="stat-label">预约量</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">30%</div>
+                        <div class="stat-label">销售额提升</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;">试点期间，网页非遗板块累计访问量达5000余次，线下非遗体验预约量达300余人次，带动非遗手工艺品线上销售额提升30%，不仅实现了非遗文化的线上传播，也为非遗传承人拓宽了收入渠道，进一步完善了"线上展示+线下体验+产品销售"的闭环模式，为项目全面落地积累了宝贵经验。</p>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 好花红布依族线上云旅游网页. 保留所有权利.</p>
+        </div>
+    </footer>
+</body>
+</html>

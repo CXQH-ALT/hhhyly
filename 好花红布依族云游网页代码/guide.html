@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>线下导览 - 好花红布依族·云游</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        /* 顶部导航栏 */
+        .navbar {
+            background-color: #1a365d;
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        .nav-menu li {
+            margin: 0 20px;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        .nav-menu a:hover {
+            color: #d4a76a;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+        .search-box {
+            position: relative;
+            margin-right: 20px;
+        }
+        .search-input {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: none;
+            width: 200px;
+            font-size: 14px;
+        }
+        .login-btn {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 15px;
+        }
+        .login-btn:hover {
+            text-decoration: underline;
+        }
+        /* 页面内容 */
+        .content {
+            margin-top: 80px;
+            padding: 40px;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 10px;
+        }
+        .page-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        /* 导览概览 */
+        .overview-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .overview-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .overview-header h2 {
+            font-size: 28px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .overview-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .overview-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .overview-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        .overview-text {
+            flex: 1;
+        }
+        .overview-text h3 {
+            font-size: 24px;
+            color: #1a365d;
+            margin-bottom: 20px;
+        }
+        .overview-text p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        /* 导览信息 */
+        .guide-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .guide-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .guide-header h2 {
+            font-size: 28px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .guide-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .guide-left {
+            padding-right: 20px;
+        }
+        .guide-right {
+            padding-left: 20px;
+        }
+        .guide-section h3 {
+            font-size: 20px;
+            color: #1a365d;
+            margin-bottom: 20px;
+        }
+        .guide-section h4 {
+            font-size: 16px;
+            color: #1a365d;
+            margin-bottom: 10px;
+        }
+        .guide-section p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .guide-section ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        .guide-section li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            color: #666;
+        }
+        .guide-section li:before {
+            content: "•";
+            color: #1a365d;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        .map-container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        /* 游玩攻略 */
+        .攻略-section {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        .攻略-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .攻略-header h2 {
+            font-size: 28px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .攻略-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .攻略-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .攻略-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .攻略-card h3 {
+            font-size: 18px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .攻略-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .攻略-card ul {
+            list-style: none;
+        }
+        .攻略-card li {
+            padding: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .攻略-card li:before {
+            content: "•";
+            color: #1a365d;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        /* 底部页脚 */
+        .footer {
+            background-color: #1a365d;
+            color: white;
+            padding: 60px 40px;
+            margin-top: 40px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #d4a76a;
+        }
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #e0e0e0;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #d4a76a;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #2d3748;
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🏯</span>
+            好花红布依族·云游
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="panoramic.html">全景云游</a></li>
+            <li><a href="culture.html">布依文化</a></li>
+            <li><a href="intangible.html">非遗展陈</a></li>
+            <li><a href="products.html">特产风物</a></li>
+            <li><a href="guide.html">线下导览</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="搜索...">
+            </div>
+            <a href="#" class="login-btn">登录</a>
+            <a href="#" class="login-btn">注册</a>
+        </div>
+    </nav>
+
+    <!-- 页面内容 -->
+    <div class="content">
+        <h1 class="page-title">线下导览</h1>
+        <p class="page-subtitle">为您提供详细的交通路线、游玩攻略和联系方式</p>
+
+        <!-- 导览概览 -->
+        <div class="overview-section">
+            <div class="overview-header">
+                <h2>导览概览</h2>
+                <p>好花红布依族村寨欢迎您的到来</p>
+            </div>
+            <div class="overview-content">
+                <div class="overview-image">
+                    <img src="https://youimg1.c-ctrip.com/target/100o0j000000aid36A75C.jpg" alt="村寨风光">
+                </div>
+                <div class="overview-text">
+                    <h3>好花红布依族村寨</h3>
+                    <p>好花红布依族村寨位于贵州省黔南布依族苗族自治州惠水县，是一个有着悠久历史和丰富文化的布依族传统村落。这里山清水秀，风景优美，保存了大量的布依族传统建筑和文化遗产。</p>
+                    <p>村寨内有布依族传统的干栏式建筑、古色古香的街道、清澈见底的溪流，以及丰富多彩的民族文化活动。游客可以在这里体验布依族的传统生活方式，欣赏布依族的传统歌舞，品尝布依族的特色美食，购买布依族的手工艺品。</p>
+                    <p>为了方便游客的到来，我们提供了详细的交通路线、游玩攻略和联系方式，希望您在好花红布依族村寨度过一个愉快的时光。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 导览信息 -->
+        <div class="guide-section">
+            <div class="guide-header">
+                <h2>导览信息</h2>
+                <p>为您提供详细的交通路线和联系方式</p>
+            </div>
+            <div class="guide-content">
+                <div class="guide-left">
+                    <h3>交通路线</h3>
+                    <h4>自驾路线</h4>
+                    <p>从贵阳出发：</p>
+                    <ul>
+                        <li>沿贵惠高速行驶约40公里，在惠水出口下高速</li>
+                        <li>沿S101省道行驶约20公里，到达好花红镇</li>
+                        <li>根据路标指示，前往好花红布依族村寨</li>
+                    </ul>
+                    <p>从都匀出发：</p>
+                    <ul>
+                        <li>沿厦蓉高速行驶约60公里，在惠水出口下高速</li>
+                        <li>沿S101省道行驶约20公里，到达好花红镇</li>
+                        <li>根据路标指示，前往好花红布依族村寨</li>
+                    </ul>
+                    <h4>公共交通</h4>
+                    <p>从贵阳出发：</p>
+                    <ul>
+                        <li>在贵阳客运东站乘坐前往惠水的班车，车程约1小时</li>
+                        <li>在惠水汽车站换乘前往好花红镇的班车，车程约30分钟</li>
+                        <li>在好花红镇下车后，步行或乘坐当地交通工具前往村寨</li>
+                    </ul>
+                    <h3>游玩攻略</h3>
+                    <h4>最佳游玩时间</h4>
+                    <p>春季（3-5月）：春暖花开，风景优美，适合踏青赏花</p>
+                    <p>夏季（6-8月）：气候凉爽，适合避暑，可欣赏田园风光</p>
+                    <p>秋季（9-11月）：稻谷成熟，金黄色的稻田美不胜收</p>
+                    <p>冬季（12-2月）：气候温和，可体验布依族的传统节日</p>
+                    <h4>建议游玩时长</h4>
+                    <p>半天到一天：适合短暂游览，参观主要景点</p>
+                    <p>两天一夜：可以更深入地体验布依族文化，参加民俗活动</p>
+                </div>
+                <div class="guide-right">
+                    <h3>村寨地图</h3>
+                    <div class="map-container">
+                        <div class="map-placeholder">
+                            <div>
+                                <h4>好花红布依族村寨地图</h4>
+                                <p>此处将显示村寨地图</p>
+                            </div>
+                        </div>
+                        <p>村寨地图正在加载中，您可以通过以下联系方式获取更多信息。</p>
+                    </div>
+                    <h3>联系方式</h3>
+                    <h4>景区咨询</h4>
+                    <p>电话：0854-6424230</p>
+                    <p>地址：贵州省黔南布依族苗族自治州惠水县好花红镇</p>
+                    <h4>旅游服务</h4>
+                    <p>导游服务：提供专业的布依族文化导游</p>
+                    <p>餐饮服务：村寨内有多家特色餐厅，提供布依族美食</p>
+                    <p>住宿服务：村寨内有民宿和农家乐，可提供住宿</p>
+                    <p>购物服务：村寨内有特色商店，出售布依族手工艺品和特产</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游玩攻略 -->
+        <div class="攻略-section">
+            <div class="攻略-header">
+                <h2>特色游玩攻略</h2>
+                <p>为您推荐的精品游玩路线</p>
+            </div>
+            <div class="攻略-cards">
+                <div class="攻略-card">
+                    <h3>文化体验路线</h3>
+                    <p>深入了解布依族的传统文化和生活方式</p>
+                    <ul>
+                        <li>参观布依族传统干栏式建筑</li>
+                        <li>欣赏布依族传统歌舞表演</li>
+                        <li>体验布依族传统手工艺制作</li>
+                        <li>品尝布依族特色美食</li>
+                        <li>参加布依族传统节日活动</li>
+                    </ul>
+                </div>
+                <div class="攻略-card">
+                    <h3>自然探索路线</h3>
+                    <p>欣赏好花红的自然风光和生态环境</p>
+                    <ul>
+                        <li>漫步村寨周边的田园风光</li>
+                        <li>游览清澈见底的溪流</li>
+                        <li>登上村寨附近的小山，俯瞰全景</li>
+                        <li>参观当地的果园和茶园</li>
+                        <li>体验农耕文化，参与农事活动</li>
+                    </ul>
+                </div>
+                <div class="攻略-card">
+                    <h3>休闲度假路线</h3>
+                    <p>放松身心，享受慢生活的乐趣</p>
+                    <ul>
+                        <li>在村寨内的民宿小住，体验乡村生活</li>
+                        <li>在溪流边野餐，享受自然美景</li>
+                        <li>参与当地的篝火晚会，与村民互动</li>
+                        <li>购买布依族特色手工艺品和特产</li>
+                        <li>在村寨周边的农家乐品尝农家菜</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <p>好花红布依族云游项目致力于通过数字化技术，展示布依族的传统文化和自然风光，促进乡村文旅发展，实现文化传承与经济增收的双重目标。</p>
+            </div>
+            <div class="footer-section">
+                <h3>快速导航</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="panoramic.html">全景云游</a></li>
+                    <li><a href="culture.html">布依文化</a></li>
+                    <li><a href="intangible.html">非遗展陈</a></li>
+                    <li><a href="products.html">特产风物</a></li>
+                    <li><a href="guide.html">线下导览</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+               <h3>联系我们</h3>
+                <p>团队电话：13950916331</p>
+                <p>团队邮箱：2209767041@qq.com</p>
+                <p>旅游地址：贵州省黔南布依族苗族自治州惠水县好花红镇</p>
+            </div>
+            <div class="footer-section">
+                <h3>版权信息</h3>
+                <p>© 2026 好花红布依族·云游-贵州黔南科技学院-创新启航队</p>
+                <p>保留所有权利</p>
+                <p>网站设计与开发：贵州黔南科技学院-创新启航队</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 好花红布依族·云游-贵州黔南科技学院-创新启航队 版权所有</p>
+        </div>
+    </footer>
+</body>
+</html>

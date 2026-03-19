@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非遗展陈 - 好花红布依族·云游</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        /* 顶部导航栏 */
+        .navbar {
+            background-color: #1a365d;
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        .nav-menu li {
+            margin: 0 20px;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        .nav-menu a:hover {
+            color: #d4a76a;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+        .search-box {
+            position: relative;
+            margin-right: 20px;
+        }
+        .search-input {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: none;
+            width: 200px;
+            font-size: 14px;
+        }
+        .login-btn {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 15px;
+        }
+        .login-btn:hover {
+            text-decoration: underline;
+        }
+        /* 页面内容 */
+        .content {
+            margin-top: 80px;
+            padding: 40px;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 10px;
+        }
+        .page-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        /* 非遗概览 */
+        .overview-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .overview-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .overview-header h2 {
+            font-size: 28px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .overview-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .overview-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .overview-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        .overview-text {
+            flex: 1;
+        }
+        .overview-text h3 {
+            font-size: 24px;
+            color: #1a365d;
+            margin-bottom: 20px;
+        }
+        .overview-text p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        /* 非遗技艺 */
+        .intangible-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .intangible-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .intangible-header h2 {
+            font-size: 28px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .intangible-item {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .intangible-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        .intangible-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .intangible-image img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        .intangible-content {
+            flex: 1;
+        }
+        .intangible-content h3 {
+            font-size: 24px;
+            color: #1a365d;
+            margin-bottom: 20px;
+        }
+        .intangible-content p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .intangible-master {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .intangible-master h4 {
+            font-size: 18px;
+            color: #1a365d;
+            margin-bottom: 10px;
+        }
+        .intangible-master p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        /* 工艺展示 */
+        .process-section {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        .process-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .process-header h2 {
+            font-size: 28px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .process-step {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #1a365d;
+            color: white;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .process-step h3 {
+            font-size: 18px;
+            color: #1a365d;
+            margin-bottom: 10px;
+        }
+        .process-step p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        /* 底部页脚 */
+        .footer {
+            background-color: #1a365d;
+            color: white;
+            padding: 60px 40px;
+            margin-top: 40px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #d4a76a;
+        }
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #e0e0e0;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #d4a76a;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #2d3748;
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🏯</span>
+            好花红布依族·云游
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="panoramic.html">全景云游</a></li>
+            <li><a href="culture.html">布依文化</a></li>
+            <li><a href="intangible.html">非遗展陈</a></li>
+            <li><a href="products.html">特产风物</a></li>
+            <li><a href="guide.html">线下导览</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="搜索...">
+            </div>
+            <a href="#" class="login-btn">登录</a>
+            <a href="#" class="login-btn">注册</a>
+        </div>
+    </nav>
+
+    <!-- 页面内容 -->
+    <div class="content">
+        <h1 class="page-title">非遗展陈</h1>
+        <p class="page-subtitle">探索布依族珍贵的非物质文化遗产</p>
+
+        <!-- 非遗概览 -->
+        <div class="overview-section">
+            <div class="overview-header">
+                <h2>非遗概览</h2>
+                <p>布依族非物质文化遗产是中华民族文化宝库中的重要组成部分</p>
+            </div>
+            <div class="overview-content">
+                <div class="overview-image">
+                    <img src="https://ts1.tc.mm.bing.net/th/id/OIP-C.B95TAFB_unHlbaPl_5DjXQHaE7?rs=1&pid=ImgDetMain&o=7&rm=3" alt="非遗概览">
+                </div>
+                <div class="overview-text">
+                    <h3>布依族非物质文化遗产</h3>
+                    <p>布依族有着丰富的非物质文化遗产，这些遗产是布依族人民在长期的生产生活中创造和传承的宝贵财富。其中，蜡染、刺绣、织锦等传统工艺尤为著名，它们不仅具有实用价值，也是布依族文化的重要载体。</p>
+                    <p>好花红布依族村寨作为布依族文化的重要传承地，保存了大量的非物质文化遗产。这些遗产不仅是布依族人民的骄傲，也是中华民族文化多样性的重要体现。通过本页面，您可以深入了解布依族的非物质文化遗产，感受传统工艺的魅力。</p>
+                    <p>我们致力于通过数字化技术，保护和传承这些珍贵的非物质文化遗产，让更多的人了解和欣赏布依族的传统工艺，促进文化的交流与发展。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 非遗技艺 -->
+        <div class="intangible-section">
+            <div class="intangible-header">
+                <h2>传统技艺</h2>
+                <p>布依族独特的传统工艺技艺</p>
+            </div>
+            <div class="intangible-item">
+                <div class="intangible-image">
+                    <img src="https://d.ifengimg.com/q100/img1.ugc.ifeng.com/newugc/20191111/10/wemedia/52e67b84a443a7354f3366d9af5613dd5adee07d_size232_w1022_h588.png" alt="蜡染技艺">
+                </div>
+                <div class="intangible-content">
+                    <h3>蜡染技艺</h3>
+                    <p>布依族蜡染是中国传统的民间印染工艺之一，以其独特的图案和精湛的技艺闻名。蜡染过程包括绘图、点蜡、染色、脱蜡等步骤，每一步都需要匠人的精心操作。</p>
+                    <p>蜡染的图案多取材于自然景物和生活场景，如花鸟、龙凤、几何纹样等，色彩以蓝白为主，简洁明快，富有民族特色。蜡染制品不仅是日常生活的必需品，也是重要的艺术收藏品。</p>
+                    <div class="intangible-master">
+                        <h4>传承人：王金花</h4>
+                        <p>王金花是布依族蜡染技艺的代表性传承人，从事蜡染制作已有30多年。她的作品融合了传统工艺和现代设计，多次在国内外展览中获奖，为布依族蜡染的传承和发展做出了重要贡献。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="intangible-item">
+                <div class="intangible-image">
+                    <img src="https://imgs.699pic.com/images/402/685/289.jpg!detail.v1" alt="刺绣技艺">
+                </div>
+                <div class="intangible-content">
+                    <h3>刺绣技艺</h3>
+                    <p>布依族刺绣以其精细的针法和鲜艳的色彩著称，是布依族传统工艺的重要组成部分。刺绣的图案多取材于自然景物和生活场景，如花鸟、龙凤、几何纹样等，体现了布依族人民对美好生活的向往。</p>
+                    <p>布依族刺绣的针法多样，包括平绣、挑绣、贴布绣等，每种针法都有其独特的特点和应用场景。刺绣制品主要用于服饰、家居装饰等，是布依族文化的重要载体。</p>
+                    <div class="intangible-master">
+                        <h4>传承人：李银花</h4>
+                        <p>李银花是布依族刺绣技艺的代表性传承人，从小跟随母亲学习刺绣，掌握了多种刺绣针法和图案设计技巧。她的作品工艺精湛，图案精美，深受人们的喜爱，为布依族刺绣的传承和发展做出了重要贡献。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="intangible-item">
+                <div class="intangible-image">
+                    <img src="https://n.sinaimg.cn/sinacn20114/712/w756h756/20190429/8e1a-hwfpcxm9255812.jpg" alt="织锦技艺">
+                </div>
+                <div class="intangible-content">
+                    <h3>织锦技艺</h3>
+                    <p>布依族织锦是一种传统的手工纺织技艺，使用木织机，以棉、麻、丝为原料，织出各种精美的图案和花纹。织锦的图案多取材于自然景物和生活场景，如花鸟、龙凤、几何纹样等，色彩鲜艳，富有民族特色。</p>
+                    <p>布依族织锦的制作过程包括纺纱、染色、织布等多个步骤，每一步都需要匠人的精心操作。织锦制品主要用于服饰、家居装饰等，是布依族文化的重要载体。</p>
+                    <div class="intangible-master">
+                        <h4>传承人：张秀兰</h4>
+                        <p>张秀兰是布依族织锦技艺的代表性传承人，从事织锦制作已有40多年。她的作品工艺精湛，图案精美，多次在国内外展览中获奖，为布依族织锦的传承和发展做出了重要贡献。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 工艺展示 -->
+        <div class="process-section">
+            <div class="process-header">
+                <h2>工艺流程</h2>
+                <p>了解布依族传统工艺的制作过程</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>准备材料</h3>
+                    <p>选择优质的原材料，如棉花、蚕丝、染料等，确保产品的质量和美观。</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>设计图案</h3>
+                    <p>根据传统图案和现代需求，设计出美观、富有民族特色的图案。</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>制作过程</h3>
+                    <p>按照传统工艺的步骤，进行制作，如蜡染的点蜡、染色，刺绣的针法，织锦的织布等。</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>成品加工</h3>
+                    <p>对制作完成的产品进行整理、加工，确保产品的质量和美观。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <p>好花红布依族云游项目致力于通过数字化技术，展示布依族的传统文化和自然风光，促进乡村文旅发展，实现文化传承与经济增收的双重目标。</p>
+            </div>
+            <div class="footer-section">
+                <h3>快速导航</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="panoramic.html">全景云游</a></li>
+                    <li><a href="culture.html">布依文化</a></li>
+                    <li><a href="intangible.html">非遗展陈</a></li>
+                    <li><a href="products.html">特产风物</a></li>
+                    <li><a href="guide.html">线下导览</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>联系我们</h3>
+                <p>团队电话：13950916331</p>
+                <p>团队邮箱：2209767041@qq.com</p>
+                <p>旅游地址：贵州省黔南布依族苗族自治州惠水县好花红镇</p>
+            </div>
+            <div class="footer-section">
+                <h3>版权信息</h3>
+                <p>© 2026 好花红布依族·云游-贵州黔南科技学院-创新启航队</p>
+                <p>保留所有权利</p>
+                <p>网站设计与开发：贵州黔南科技学院-创新启航队</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 好花红布依族·云游-贵州黔南科技学院-创新启航队 版权所有</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>布依文化 - 好花红布依族·云游</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        /* 顶部导航栏 */
+        .navbar {
+            background-color: #1a365d;
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        .nav-menu li {
+            margin: 0 20px;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        .nav-menu a:hover {
+            color: #d4a76a;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+        .search-box {
+            position: relative;
+            margin-right: 20px;
+        }
+        .search-input {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: none;
+            width: 200px;
+            font-size: 14px;
+        }
+        .login-btn {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            margin-left: 15px;
+        }
+        .login-btn:hover {
+            text-decoration: underline;
+        }
+        /* 页面内容 */
+        .content {
+            margin-top: 80px;
+            padding: 40px;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 10px;
+        }
+        .page-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        /* 文化概览 */
+        .overview-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .overview-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .overview-header h2 {
+            font-size: 28px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .overview-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .overview-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .overview-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        .overview-text {
+            flex: 1;
+        }
+        .overview-text h3 {
+            font-size: 24px;
+            color: #1a365d;
+            margin-bottom: 20px;
+        }
+        .overview-text p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        /* 文化板块 */
+        .culture-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        .culture-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .culture-header h2 {
+            font-size: 28px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .culture-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .culture-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .culture-card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        .culture-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .culture-card:hover .culture-card-image img {
+            transform: scale(1.05);
+        }
+        .culture-card-content {
+            padding: 20px;
+        }
+        .culture-card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 10px;
+        }
+        .culture-card-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        /* 特色文化 */
+        .feature-section {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        .feature-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .feature-header h2 {
+            font-size: 28px;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .feature-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        .feature-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .feature-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        .feature-content {
+            flex: 1;
+        }
+        .feature-content h3 {
+            font-size: 24px;
+            color: #1a365d;
+            margin-bottom: 20px;
+        }
+        .feature-content p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        /* 底部页脚 */
+        .footer {
+            background-color: #1a365d;
+            color: white;
+            padding: 60px 40px;
+            margin-top: 40px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #d4a76a;
+        }
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #e0e0e0;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #d4a76a;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #2d3748;
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🏯</span>
+            好花红布依族·云游
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="panoramic.html">全景云游</a></li>
+            <li><a href="culture.html">布依文化</a></li>
+            <li><a href="intangible.html">非遗展陈</a></li>
+            <li><a href="products.html">特产风物</a></li>
+            <li><a href="guide.html">线下导览</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="搜索...">
+            </div>
+            <a href="#" class="login-btn">登录</a>
+            <a href="#" class="login-btn">注册</a>
+        </div>
+    </nav>
+
+    <!-- 页面内容 -->
+    <div class="content">
+        <h1 class="page-title">布依文化</h1>
+        <p class="page-subtitle">探索布依族丰富多彩的传统文化与民俗风情</p>
+
+        <!-- 文化概览 -->
+        <div class="overview-section">
+            <div class="overview-header">
+                <h2>文化概览</h2>
+                <p>布依族是中国的一个古老民族，有着悠久的历史和丰富的文化遗产</p>
+            </div>
+            <div class="overview-content">
+                <div class="overview-image">
+                    <img src="https://img1.baidu.com/it/u=2423090692,2599047255&fm=253&fmt=auto&app=138&f=JPEG?w=751&h=500" alt="布依文化概览">
+                </div>
+                <div class="overview-text">
+                    <h3>布依族文化源远流长</h3>
+                    <p>布依族是中国西南地区的一个少数民族，主要分布在贵州、云南、广西等地。布依族有着悠久的历史，其文化可以追溯到新石器时代。布依族人民在长期的生产生活中，创造了丰富多彩的文化艺术，包括语言、文字、音乐、舞蹈、工艺等多个方面。</p>
+                    <p>布依族的传统文化以其独特的民族特色和艺术价值而闻名，其中包括蜡染、刺绣、织锦等传统工艺，以及三月三、六月六等传统节日。这些文化遗产不仅是布依族人民的宝贵财富，也是中华民族文化宝库中的重要组成部分。</p>
+                    <p>好花红布依族村寨作为布依族文化的重要传承地，保存了大量的传统文化元素，是了解布依族文化的重要窗口。通过本页面，您可以深入了解布依族的传统文化、民俗风情和生活方式。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 文化板块 -->
+        <div class="culture-section">
+            <div class="culture-header">
+                <h2>文化瑰宝</h2>
+                <p>布依族丰富多彩的文化遗产</p>
+            </div>
+            <div class="culture-grid">
+                <div class="culture-card">
+                    <div class="culture-card-image">
+                        <img src="https://ts1.tc.mm.bing.net/th/id/OIP-C.aO_9bQIdJL3CWgmPu2f6mAHaEx?rs=1&pid=ImgDetMain&o=7&rm=3" alt="传统节日">
+                    </div>
+                    <div class="culture-card-content">
+                        <h3 class="culture-card-title">传统节日</h3>
+                        <p class="culture-card-desc">布依族有着丰富多彩的传统节日，如三月三、六月六等。这些节日不仅是文化的传承，也是民族凝聚力的象征，通过各种仪式和活动，展现了布依族的文化特色和生活方式。</p>
+                    </div>
+                </div>
+                <div class="culture-card">
+                    <div class="culture-card-image">
+                        <img src="https://q9.itc.cn/q_70/images03/20240904/4caa976ceb4a471c8fb55f597574886e.jpeg" alt="特色婚俗">
+                    </div>
+                    <div class="culture-card-content">
+                        <h3 class="culture-card-title">特色婚俗</h3>
+                        <p class="culture-card-desc">布依族的婚俗独具特色，有着严格的传统礼仪和流程。从提亲、订婚到结婚，每一个环节都有独特的仪式和习俗，体现了布依族对婚姻的重视和对美好生活的向往。</p>
+                    </div>
+                </div>
+                <div class="culture-card">
+                    <div class="culture-card-image">
+                        <img src="https://img95.699pic.com/photo/40242/9439.jpg_wh860.jpg" alt="饮食文化">
+                    </div>
+                    <div class="culture-card-content">
+                        <h3 class="culture-card-title">饮食文化</h3>
+                        <p class="culture-card-desc">布依族的饮食文化丰富多样，以糯米、玉米为主食，辅以各种特色菜肴。布依酸汤、糯米糍粑、五色饭等传统美食，不仅味道独特，也蕴含着深厚的文化内涵。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 特色文化 -->
+        <div class="feature-section">
+            <div class="feature-header">
+                <h2>特色文化</h2>
+                <p>深入了解布依族的独特文化元素</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-image">
+                    <img src="https://img2.baidu.com/it/u=3654383339,1150243804&fm=253&fmt=auto&app=120&f=JPEG?w=1358&h=800" alt="音乐舞蹈">
+                </div>
+                <div class="feature-content">
+                    <h3>音乐与舞蹈</h3>
+                    <p>布依族是一个能歌善舞的民族，有着丰富的音乐和舞蹈文化。布依族的音乐以山歌、情歌、酒歌等为主要形式，旋律优美，歌词内容丰富。舞蹈则以铜鼓舞、摆手舞、花棍舞等为代表，动作优美，富有民族特色。</p>
+                    <p>在传统节日和重要场合，布依族人民都会通过音乐和舞蹈来表达喜悦和祝福，这些艺术形式不仅是文化的传承，也是民族精神的体现。</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-image">
+                    <img src="https://pic3.zhimg.com/v2-10b18701ecba33265856a61374765a29_r.jpg" alt="建筑艺术">
+                </div>
+                <div class="feature-content">
+                    <h3>建筑艺术</h3>
+                    <p>布依族的传统建筑以干栏式吊脚楼为特色，这种建筑形式适应了山区的地理环境，具有通风、防潮、防盗等优点。吊脚楼的设计和建造工艺体现了布依族人民的智慧和审美观念，是中国传统建筑的重要组成部分。</p>
+                    <p>好花红布依族村寨保存了大量的传统吊脚楼，这些建筑不仅是历史的见证，也是布依族文化的重要载体。</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-image">
+                    <img src="https://ts3.tc.mm.bing.net/th/id/OIP-C.2sSy0DllTRFPPTfmC2b8CwHaOc?rs=1&pid=ImgDetMain&o=7&rm=3" alt="传统服饰">
+                </div>
+                <div class="feature-content">
+                    <h3>传统服饰</h3>
+                    <p>布依族的传统服饰色彩鲜艳，图案精美，体现了布依族人民的审美观念和文化特色。布依族女性的服饰以蓝、青、白为主色调，配以精美的刺绣和蜡染图案，款式多样，富有民族特色。男性服饰则以青布长衫为主，简洁大方。</p>
+                    <p>布依族的传统服饰不仅是日常生活的必需品，也是重要的文化符号，反映了布依族的历史、信仰和生活方式。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <p>好花红布依族云游项目致力于通过数字化技术，展示布依族的传统文化和自然风光，促进乡村文旅发展，实现文化传承与经济增收的双重目标。</p>
+            </div>
+            <div class="footer-section">
+                <h3>快速导航</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="panoramic.html">全景云游</a></li>
+                    <li><a href="culture.html">布依文化</a></li>
+                    <li><a href="intangible.html">非遗展陈</a></li>
+                    <li><a href="products.html">特产风物</a></li>
+                    <li><a href="guide.html">线下导览</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>联系我们</h3>
+                <p>团队电话：13950916331</p>
+                <p>团队邮箱：2209767041@qq.com</p>
+                <p>旅游地址：贵州省黔南布依族苗族自治州惠水县好花红镇</p>
+            </div>
+            <div class="footer-section">
+                <h3>版权信息</h3>
+                <p>© 2026 好花红布依族·云游-贵州黔南科技学院-创新启航队</p>
+                <p>保留所有权利</p>
+                <p>网站设计与开发：贵州黔南科技学院-创新启航队</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 好花红布依族·云游-贵州黔南科技学院-创新启航队 版权所有</p>
+        </div>
+    </footer>
+</body>
+</html>
